@@ -1,0 +1,49 @@
+<script setup>
+import { ref, reactive, computed } from "vue";
+const cars = ref([
+  {
+    id: 1,
+    name: "Ford",
+    year: "1903",
+    color: "red",
+    price: "100000",
+    isSold: false,
+  },
+  {
+    id: 2,
+    name: "Audi",
+    year: "1904",
+    color: "blue",
+    price: "200000",
+    isSold: false,
+  },
+  {
+    id: 3,
+    name: "BMW",
+    year: "1905",
+    color: "black",
+    price: "300000",
+    isSold: false,
+  },
+]);
+const now = ref(new Date());
+const filterName = "";
+var getNow = computed(() => {
+  // format date to dd/mm/yyyy HH:MM:SS
+  return now.value.toLocaleString();
+});
+// filter cars by name 
+const filterCars = computed(() => {
+  return cars.value.filter((car) => {
+    return car.name.toLowerCase().includes(filterName.value.toLowerCase());
+  });
+});
+
+</script>
+<template>
+  <h3>{{ getNow }}</h3>
+  <div v-for="(item, index) in cars" :key="index">
+    <p>#{{ item.id }}</p>
+  </div>
+  <button @click="onClickMe">Change name</button>
+</template>
